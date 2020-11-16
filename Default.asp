@@ -1,88 +1,84 @@
+<!-- Essa linha define que o script será lido como JavaScript -->
+<!-- < %@ language="javascript" %> -->
 <!DOCTYPE html>
-<hrml>
-    <head>
-        <meta charset="UTF-8">
-        <style>
-           body{
-               background-color: "#f1f1f1";             
-           }
-        </style>
-    </head>
-    <body>
-        <%
-        'Força a declarar todas as variáveis como dim, public ou private.
-        'Option Explicit
+<html>
+<head>
+    <title>Procedures ASP (Procedimentos)</title>
+    <meta charset="utf-8" >
+    <!-- VBScript
+    < %     
+        sub vbproc(num1,num2)
+            response.write(num1*num2)
+        end sub 
+    %>
+    -->
 
-        ' Declarar variável
-        dim a, b, r, frase
-        a = 1
-        b = 2       
-        r = a + b
-        frase = "<p style='color:#0000ff' >This text is styled " & r & " </p>"
-        Response.Write(frase)          
-      
-        ' Criar Array
-        dim nomes(6), i
-        nomes(0) = "Jean"
-        nomes(1) = "mardonio"
-        nomes(2) = "Maria"
-        nomes(3) = "Ramyla"
-        nomes(4) = "Nega"
-        nomes(5) = "Caneca"
-        nomes(6) = "Outros"
-        For i = 0 To 6
-            Response.Write(nomes(i) & "<br>")
-        Next
+    <!-- JavaScript -->
+    <!-- < %    
+    function jsproc(num1,num2)
+    {
+        Response.Write(num1*num2)
+    }
+    %> -->
 
-        ' Pecorrer cabeçalhos HTML
-        dim i2
-        for i2 = 1 to 6
-            response.write("<h" & i2 & ">Heading " & i2 & "</h" & i2 & ">")
-        next
+    <!-- Como chamar um procedimento JavaScript e um procedimento VBScript em um arquivo ASP. -->
+    <%
+    sub vbproc2(num1,num2)
+        Response.Write(num1*num2)
+    end sub
+    %>
+    <script language="javascript" runat="server">
+        function jsproc2(num1,num2)
+        {
+            Response.Write(num1*num2)
+        }
+    </script>
 
-        ' Saudação baseada em hora usando VBScript
-        dim h
-        h = hour(now())     
-        response.write("<p>" & now())   
-        response.write("</p>")
-        If h < 12 then
-            response.write("Bom dia!")
-        elseIf h < 18 then
-            response.write("Boa tarde!")
-        else
-            response.write("Boa noite!")
-        end If
+</head>
+<body>
+    <!-- VBScript -->
+    <!-- <p>Você pode chamar um procedimento como este:</p> -->
+    <!-- <p> Resultado: < % 'call vbproc(3,4) %> </p> -->
+    <!-- <p> Ou, assim: </p> -->
+    <!-- <p> Resultado: < % 'vbproc 3,4 %> </p> -->
 
-        dim name
-        name = "<br> Mardonio"
-        response.write(name)
-        response.write("<br>")
-        name = "Love"
-        response.write(name)
+    <!-- JavaScript -->
+    <!-- <p>Resultado: < % jsproc(3,4) %> </p> -->
 
-        ' Array bidimensional
-        Dim table(4,6) 'Aqui temos uma matriz bidimensional que consiste em 5 linhas e 7 colunas
-        Dim x(2,2)
-        x(0,0)="Volvo"
-        x(0,1)="BMW"
-        x(0,2)="Ford"
-        x(1,0)="Apple"
-        x(1,1)="Orange"
-        x(1,2)="Banana"
-        x(2,0)="Coke"
-        x(2,1)="Pepsi"
-        x(2,2)="Sprite"
-        for i=0 to 2
-            response.write("<p>")
-            for j=0 to 2
-                response.write(x(i,j) & "<br />")
-            next
-            response.write("</p>")
-        next
+    <!-- Procedimentos VBScript -->
 
-        'Variaveis de sessão e variaveis de aplicativo são outros tipos de variáveis
+    <!-- Procedimentos Sub VBScript -->
+    <%
+    'Procedimentos Sub é uma serie de instruções que pode ter parâmetros mas não retorna um valor.
+    Sub mysub()
+        response.write("Eu fui escrito por um subprocedimento.")
+    end sub
+    mysub
+    
+    response.write("<br>")
 
+    'Procedimento de função são instruções que pode realizar ações e retornar um valor atribuindo ao seu nome
+    function myfunction()
+        myfunction=Date()
+    end function
+    response.write("Data: "&myfunction())
 
-        %>
-    </body>    
-</hrml>
+    response.write("<br>")
+
+    'Chamando um procedimento com argumentos
+    function mySum(a,b)
+        mySum=a+b
+    end function
+    response.write("Soma: "& mySum(5,9))    
+    'Com a instrução call - dessa forma não funciona dentro response.write()
+    call mySum(5,9)
+    'sem a instrução call - dessa forma não funciona dentro response.write()
+    mySum 5,9
+    %>
+
+    <!-- Como chamar um procedimento JavaScript e um procedimento VBScript em um arquivo ASP. -->
+    <p>Result: <%call vbproc2(3,4)%></p>
+    <p>Result: <%call jsproc2(3,4)%></p>
+
+</body>
+</html>

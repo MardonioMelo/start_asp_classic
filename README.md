@@ -39,7 +39,16 @@ Inserir um valor de variável em um texto.
 
 Link: https://www.w3schools.com/asp/asp_variables.asp
 
+### Procedures ASP (Procedimentos) 
 
+- Diferenças entre VBScript e JavaScript
+- Procedimentos VBScript
+- Procedimentos Sub VBScript
+- Procedimentos de função VBScript
+- Chamando um Procedimento
+- Exemplos
+
+Link: https://www.w3schools.com/asp/asp_procedures.asp
 
 
 
