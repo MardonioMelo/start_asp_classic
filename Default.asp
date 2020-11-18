@@ -1,84 +1,68 @@
-<!-- Essa linha define que o script será lido como JavaScript -->
-<!-- < %@ language="javascript" %> -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Procedures ASP (Procedimentos)</title>
+    <title>Condicionais ASP</title>
     <meta charset="utf-8" >
-    <!-- VBScript
-    < %     
-        sub vbproc(num1,num2)
-            response.write(num1*num2)
-        end sub 
-    %>
-    -->
-
-    <!-- JavaScript -->
-    <!-- < %    
-    function jsproc(num1,num2)
-    {
-        Response.Write(num1*num2)
-    }
-    %> -->
-
-    <!-- Como chamar um procedimento JavaScript e um procedimento VBScript em um arquivo ASP. -->
-    <%
-    sub vbproc2(num1,num2)
-        Response.Write(num1*num2)
-    end sub
-    %>
-    <script language="javascript" runat="server">
-        function jsproc2(num1,num2)
-        {
-            Response.Write(num1*num2)
-        }
-    </script>
-
 </head>
 <body>
-    <!-- VBScript -->
-    <!-- <p>Você pode chamar um procedimento como este:</p> -->
-    <!-- <p> Resultado: < % 'call vbproc(3,4) %> </p> -->
-    <!-- <p> Ou, assim: </p> -->
-    <!-- <p> Resultado: < % 'vbproc 3,4 %> </p> -->
+<%
+'No VBScript, temos quatro instruções condicionais:
+'Instrução If - executa um conjunto de códigos quando uma condição é verdadeira
+'Instrução If (se) ... Then (então) ... Else (outro) - selecione um dos dois conjuntos de linhas para executar
+'Instrução If ... Then ... ElseIf - selecione um dos muitos conjuntos de linhas para executar
+'Instrução Select Case - selecione um dos muitos conjuntos de linhas para executar
 
-    <!-- JavaScript -->
-    <!-- <p>Resultado: < % jsproc(3,4) %> </p> -->
+'Uma condição verdadeira em uma linha
+If i=0 Then response.write("Hello")
+response.write("<hr>")
 
-    <!-- Procedimentos VBScript -->
+if i=10 then
+    response.write("Hello")
+    i = i+1
+end if
+response.write("<hr>")
 
-    <!-- Procedimentos Sub VBScript -->
-    <%
-    'Procedimentos Sub é uma serie de instruções que pode ter parâmetros mas não retorna um valor.
-    Sub mysub()
-        response.write("Eu fui escrito por um subprocedimento.")
-    end sub
-    mysub
-    
-    response.write("<br>")
+i=hour(time)
+if i < 10 then
+    response.write("Bom dia!")
+else
+    response.write("Tenha um bom dia!")
+end if
+response.write("<hr>")
 
-    'Procedimento de função são instruções que pode realizar ações e retornar um valor atribuindo ao seu nome
-    function myfunction()
-        myfunction=Date()
-    end function
-    response.write("Data: "&myfunction())
+i=hour(time)
+if i = 10 then
+    response.write("Acabei de começar...!")
+ElseIf i = 11 then
+    response.write("Com fome!")
+ElseIf i = 12 then
+    response.write("Ah, hora do almoço!")
+ElseIf i = 16 then
+    response.write("É hora de ir para casa!")
+Else
+    response.write("Desconhecido")
+end if
+response.write("<hr>")
 
-    response.write("<br>")
+d=weekday(date)
+Select Case d
+    Case 1
+        response.write("Domingo sonolento!")
+    Case 2
+        response.write("Segunda-feira de novo!")
+    Case 3
+        response.write("Apenas terça!")
+    Case 4
+        response.write("Quarta-feira!")
+    Case 5
+        response.write("Quinta feira...")
+    Case 6
+        response.write("Finalmente sexta-feira!")
+    Case 7
+        response.write("Super sábado !!!!")
+End Select
 
-    'Chamando um procedimento com argumentos
-    function mySum(a,b)
-        mySum=a+b
-    end function
-    response.write("Soma: "& mySum(5,9))    
-    'Com a instrução call - dessa forma não funciona dentro response.write()
-    call mySum(5,9)
-    'sem a instrução call - dessa forma não funciona dentro response.write()
-    mySum 5,9
-    %>
 
-    <!-- Como chamar um procedimento JavaScript e um procedimento VBScript em um arquivo ASP. -->
-    <p>Result: <%call vbproc2(3,4)%></p>
-    <p>Result: <%call jsproc2(3,4)%></p>
-
+%>
 </body>
 </html>

@@ -1,5 +1,5 @@
 # Start ASP Classic
-Iniciando estudos com ASP Clássico 
+Iniciando estudos com ASP Clássico e VBScript
 
 ## 1º dia
 
@@ -50,5 +50,12 @@ Link: https://www.w3schools.com/asp/asp_variables.asp
 
 Link: https://www.w3schools.com/asp/asp_procedures.asp
 
+### Condicionais ASP
 
+- Declarações Condicionais
+- Se ... Então ... Else
+- Se ... Então ... ElseIf
+- Selecionar caso
+- Exemplos
 
+Link: https://www.w3schools.com/asp/asp_conditionals.asp
