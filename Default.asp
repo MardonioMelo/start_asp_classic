@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Looping ASP</title>
+    <title>Formulários ASP</title>
     <meta charset="utf-8" >
 </head>
 <body>
@@ -14,17 +14,15 @@
 'GET'
 dim rget
 rget = Request.QueryString("nome")
-if post <> "" then
-response.write(rget)
-response.write("Bem vindo " & Request.QueryString("snome") & "<hr>")
+if rget <> "" then
+response.write("Bem vindo " & rget & " " & Request.QueryString("snome") & "<hr>")
 end if
 
 'POST'
 dim rpost
 rpost = Request.Form("nome")
 if rpost <> "" then
-response.write(Request.Form("nome"))
-response.write("Bem vindo " & Request.Form("snome") & "<hr>")
+response.write("Bem vindo " & rpost & " " & Request.Form("snome") & "<hr>")
 end if
 %>
 
@@ -51,8 +49,6 @@ end if
     <input type="submit" value="Enviar" />
 </form>
 
-
-
 <p> Método POST - Outra página</p>
 <form method="post" action="simplesform.asp">
     Nome: <input type="text" name="nome" /><br>
@@ -60,10 +56,32 @@ end if
     <input type="submit" value="Enviar" />
 </form>
 
+<hr>
 
+<%
+'Como interagir com o usuário, através dos radio buttons, com o comando Request.Form.
+dim cars
+cars=Request.Form("cars")
+%>
 
+<form action="" method="post">
+<p>Por favor selecione seu carro favorito:</p>
 
+<input type="radio" name="cars" <%if cars="Volvo" then Response.Write("checked")%> value="Volvo">Volvo
+<br>
+<input type="radio" name="cars" <%if cars="Saab" then Response.Write("checked")%> value="Saab">Saab
+<br>
+<input type="radio" name="cars" <%if cars="BMW" then Response.Write("checked")%> value="BMW">BMW
 
+<br><br>
+<input type="submit" value="Enviar" />
+</form>
+
+<%
+if cars <> "" then
+   Response.Write("<p>Seu carro favorito é: " & cars & "</p>")
+end if
+%>
 
 </body>
 <html>
