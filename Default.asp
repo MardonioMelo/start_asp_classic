@@ -1,87 +1,85 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Formulários ASP</title>
-    <meta charset="utf-8" >
-</head>
-<body>
-<%
-'Método GET têm limites na quantidade de informações a serem enviadas.
-'Método POST não têm limites na quantidade de informações a serem enviadas.
+    <head>
+        <title>Objeto de Sessão ASP</title>
+        <meta charset="UTF-8">       
+    </head>
+    <body>
+        <%
+            'define o limite de tempo da sessão, o padrão é 20 min.'
+            Session.Timeout=5
+            'Esperar muito por uma sessão ociosa consome recursos do servidor, 
+            'mas se a sessão for excluída muito cedo, o usuário terá que começar 
+            'tudo de novo porque o servidor excluiu todas as informações.
 
-'Os comandos Request.QueryString e Request.Form são usados ​​para recuperar a entrada do usuário de formulários.
+            'Dica: armazene apenas PEQUENAS quantidades de dados em variáveis ​​de sessão!
 
-'GET'
-dim rget
-rget = Request.QueryString("nome")
-if rget <> "" then
-response.write("Bem vindo " & rget & " " & Request.QueryString("snome") & "<hr>")
-end if
+            Session("username") = "Mardônio Melo"
+            Session("idade") = 50     
+            
+           'use Session.Abandon para finalizar a sessão
+        %>
 
-'POST'
-dim rpost
-rpost = Request.Form("nome")
-if rpost <> "" then
-response.write("Bem vindo " & rpost & " " & Request.Form("snome") & "<hr>")
-end if
-%>
+        <a href="/session.asp">Nome</a>
 
-<p> Método GET </p>
-<form method="get" action="">
-    Nome: <input type="text" name="nome" /><br>
-    Sobrenome: <input type="text" name="snome" /><br><br>
-    <input type="submit" value="Enviar" />
-</form>
+        <hr>
 
-<p> Método POST </p>
-<form method="post" action="">
-    Nome: <input type="text" name="nome" /><br>
-    Sobrenome: <input type="text" name="snome" /><br><br>
-    <input type="submit" value="Enviar" />
-</form>
+        <!-- Armazenar as preferências do usuário no objeto Sessão  -->
+        <%if Session("screenres")="low" then%>
+        Esta é a versão de texto da página
+        <%else%>
+        Esta é a versão multimídia da página
+        <% end if %>
 
-<hr>
+        <hr>
 
-<p> Método GET - Outra página</p>
-<form method="get" action="simplesform.asp">
-    Nome: <input type="text" name="nome" /><br>
-    Sobrenome: <input type="text" name="snome" /><br><br>
-    <input type="submit" value="Enviar" />
-</form>
+        <% 
+            Session("venda") = "Sim"
 
-<p> Método POST - Outra página</p>
-<form method="post" action="simplesform.asp">
-    Nome: <input type="text" name="nome" /><br>
-    Sobrenome: <input type="text" name="snome" /><br><br>
-    <input type="submit" value="Enviar" />
-</form>
+            if session.contents("idade") < 18 then     
+                'Remover uma variável de sessão         
+                session.contents.remove("venda")
+            end if
 
-<hr>
+            response.write(Session("venda"))
 
-<%
-'Como interagir com o usuário, através dos radio buttons, com o comando Request.Form.
-dim cars
-cars=Request.Form("cars")
-%>
+            'Remove todas as variáveis de sessão
+            'session.contents.RemoveAll()            
+        %> 
 
-<form action="" method="post">
-<p>Por favor selecione seu carro favorito:</p>
+        <hr>
 
-<input type="radio" name="cars" <%if cars="Volvo" then Response.Write("checked")%> value="Volvo">Volvo
-<br>
-<input type="radio" name="cars" <%if cars="Saab" then Response.Write("checked")%> value="Saab">Saab
-<br>
-<input type="radio" name="cars" <%if cars="BMW" then Response.Write("checked")%> value="BMW">BMW
+        <%
+            Session("produto")="Café"
+            Session("custo") = 10
 
-<br><br>
-<input type="submit" value="Enviar" />
-</form>
+            'lista todos as variáveis de sessão do usuário que está na sessão'
+            dim i
+            for each i in session.contents
+                response.write(i & "<br>")
+            next
 
-<%
-if cars <> "" then
-   Response.Write("<p>Seu carro favorito é: " & cars & "</p>")
-end if
-%>
+            response.write("<hr>")
 
-</body>
-<html>
+            'Se você não souber o número de itens na coleção de conteúdo, poderá usar a propriedade Count:
+            dim a
+            dim b
+            b = session.contents.count
+            response.write("Qtd de variáveis de sessão: " & b & "<br>")
+            for a=1 to b
+                response.write(session.contents(a) & "<br>")
+            next
+        %>
+
+        <hr>
+
+        <%
+            'Percorrer a coleção StaticObjects para ver os valores de todos os objetos armazenados no objeto Session:
+            dim ii
+            for each ii in session.staticObjects
+                response.write(ii & "<br>")
+            next
+        %>
+
+    </body>
+</html>

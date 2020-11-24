@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<hrml>
+<html>
     <head>
         <title>Sintaxe e Variáveis ASP</title>
         <meta charset="UTF-8">

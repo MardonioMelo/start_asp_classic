@@ -90,3 +90,17 @@ Link: https://www.w3schools.com/asp/asp_looping.asp
 - Exemplos
 
 Link: https://www.w3schools.com/asp/asp_inputforms.asp
+
+## 6º dia
+
+### Objeto de Sessão ASP
+
+- O objeto da Sessão
+- Quando uma sessão começa?
+- Quando uma sessão termina?
+- Armazenar e recuperar variáveis ​​de sessão
+- Remover Variáveis ​​de Sessão
+- Percorrer a coleção de conteúdos
+- Percorrer a coleção StaticObjects
+
+Link: https://www.w3schools.com/asp/asp_sessions.asp
