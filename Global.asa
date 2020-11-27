@@ -1,0 +1,20 @@
+<script language="vbscript" runat="server">
+
+'Objeto de aplicativo ASP
+'Criar variáveis ​​de aplicativo em "Global.asa" assim:
+
+Sub Application_OnStart
+    application("vartime")=""
+    application("users")=1
+End Sub
+
+'Você pode bloquear um aplicativo com o método "Lock". 
+'Quando um aplicativo está bloqueado, os usuários não podem alterar as variáveis ​​do aplicativo 
+'(exceto aquela que o está acessando atualmente).
+'Você pode desbloquear um aplicativo com o método "Unlock". Este método remove o bloqueio da variável do aplicativo'
+Application.Lock
+'fazer algumas operações de objeto de aplicativo
+Application.Unlock
+
+
+</script>

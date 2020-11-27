@@ -118,3 +118,15 @@ Link: https://www.w3schools.com/asp/asp_sessions.asp
 - E se um navegador NÃO for compatível com cookies?
 
 Link: https://www.w3schools.com/asp/asp_cookies.asp
+
+## 8º dia
+
+### Objeto de aplicativo ASP
+
+- Objeto de Aplicação
+- Armazenar e recuperar variáveis ​​de aplicativo
+- Percorrer a coleção de conteúdos
+- Percorrer a coleção StaticObjects
+- Bloquear e desbloquear
+
+Link: https://www.w3schools.com/asp/asp_applications.asp
