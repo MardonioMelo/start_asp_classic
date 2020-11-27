@@ -104,3 +104,17 @@ Link: https://www.w3schools.com/asp/asp_inputforms.asp
 - Percorrer a coleção StaticObjects
 
 Link: https://www.w3schools.com/asp/asp_sessions.asp
+
+## 7º dia
+
+### Cookies ASP
+
+- O que é um Cookies (biscoito)?
+- Como criar um cookie?
+- Quando uma sessão termina?
+- Como recuperar um valor de cookie?
+- Um Cookies com chaves
+- Leia todos os cookies
+- E se um navegador NÃO for compatível com cookies?
+
+Link: https://www.w3schools.com/asp/asp_cookies.asp
