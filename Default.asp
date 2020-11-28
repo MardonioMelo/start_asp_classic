@@ -1,44 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Objeto de aplicativo ASP</title>
+        <title>ASP Incluindo Arquivos</title>
         <meta charset="UTF-8">       
     </head>
-    <body>
-        Tem
-        <%
-        'Armazenar e recuperar variáveis ​​de aplicativo
-        Response.Write(Application("users"))
-        %>
-        conexões ativas.
+    <body>    
 
-        <hr>
+        <!-- Use a palavra-chave "virtual" para indicar um caminho começando com um diretório virtual. -->   
+        <!-- #include virtual="/tpl/header.inc" -->
 
-        <%
-            'Percorrer a coleção de conteúdos
-            dim i
-            for each i in Application.Contents
-                Response.Write(i & "<br>")
-            next
+        <h3>Palavras de sabedoria: </h3>     
+         <!-- Use a palavra-chave do arquivo para indicar um caminho relativo. 
+        Um caminho relativo começa com o diretório que contém o arquivo incluído. -->    
+        <p><!-- #include file="tpl/body.inc" --></p>
+        <h3>O tempo é:</h3>
+        <p><!-- #include file="time.inc"--></p>  
 
-            Response.Write("<hr>")
+        <!-- #include virtual="/tpl/footer.inc" -->
 
-            'Se você não souber o número de itens na coleção de conteúdo, poderá usar a propriedade Count
-            dim ii
-            dim j
-            j=Application.Contents.Count
-            for ii = 1 to j
-                response.write(Application.Contents(ii) & "<br>")
-            next
+        <!-- Os arquivos incluídos são processados ​​e inseridos antes que os scripts sejam executados. -->
+        <!--  Um script incluído antes NÃO funcionará -->
+        <!--  porque o ASP executa a diretiva include antes de atribuir um valor à variável por exemplo -->      
 
-            Response.Write("<hr>")
-
-            'Você pode percorrer a coleção StaticObjects para ver os valores de todos os objetos armazenados no objeto Aplicativo
-            dim a
-            for each a in Application.StaticObjects
-                Response.Write(a & "<br>")
-            next
-
-        %>
     </body>
-<html>
+</html>

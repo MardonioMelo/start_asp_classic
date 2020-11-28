@@ -130,3 +130,16 @@ Link: https://www.w3schools.com/asp/asp_cookies.asp
 - Bloquear e desbloquear
 
 Link: https://www.w3schools.com/asp/asp_applications.asp
+
+## 9º dia
+
+### ASP incluindo arquivos
+
+- A diretiva #include
+- Como usar a diretiva #include
+- Sintaxe para incluir arquivos
+- A palavra-chave virtual
+- A palavra-chave do arquivo
+- Dicas e Notas
+
+Link: https://www.w3schools.com/asp/asp_incfiles.asp
