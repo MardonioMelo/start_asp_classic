@@ -39,6 +39,25 @@
                 Response.Write(a & "<br>")
             next
 
+            Response.Write("<hr>")
         %>
+
+        <% 
+            'Você pode bloquear um aplicativo com o método "Lock". 
+            'Quando um aplicativo está bloqueado, os usuários não podem alterar as variáveis ​​do aplicativo 
+            '(exceto aquela que o está acessando atualmente).
+            'Você pode desbloquear um aplicativo com o método "Unlock". Este método remove o bloqueio da variável do aplicativo'
+        
+            Application.Lock  
+            'No exemplo a seguir, o método Lock evita que mais de um cliente por vez acessem a variável NumVisits. 
+            'Se o aplicativo não tivesse sido bloqueado, dois clientes poderiam tentar simultaneamente incrementar a variável NumVisits.
+            Application("NumVisits") = Application("NumVisits") + 1  
+            Application("datLastVisited") = Now()  
+            Application.Unlock  
+        %>  
+
+        Esta página do aplicativo foi visitada  
+        <% Response.Write(Application("NumVisits")) %>  vezes! 
+
     </body>
 <html>

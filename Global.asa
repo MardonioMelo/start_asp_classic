@@ -1,3 +1,49 @@
+<!--
+O arquivo Global.asa pode conter apenas o seguinte:
+- Eventos de aplicativos
+- Eventos de sessão
+- Declarações de <objeto>
+- Declarações de TypeLibrary
+- A diretiva # include
+
+-----------------------------------------------
+
+Nota: O arquivo Global.asa deve ser armazenado no diretório raiz do aplicativo ASP 
+e cada aplicativo pode ter apenas um arquivo Global.asa.
+
+-----------------------------------------------
+
+Restrições sobre o que você pode incluir no arquivo Global.asa:
+Você não pode exibir texto escrito no arquivo Global.asa. Este arquivo não pode exibir informações
+Você só pode usar objetos Servidor e Aplicativo nas sub-rotinas Application_OnStart e Application_OnEnd. 
+Na sub-rotina Session_OnEnd, você pode usar objetos Servidor, Aplicativo e Sessão. 
+Na sub-rotina Session_OnStart você pode usar qualquer objeto embutido
+
+-----------------------------------------------
+
+Em Global.asa você pode dizer ao aplicativo e aos objetos de sessão o que fazer quando o aplicativo/sessão iniciar
+e o que fazer quando o aplicativo / sessão terminar. O código para isso é colocado em manipuladores de eventos. 
+O arquivo Global.asa pode conter quatro tipos de eventos:
+
+Application_OnStart - ocorre quando o usuário FIRST (primeiro) chama a primeira página em um aplicativo ASP. 
+Este evento ocorre depois que o servidor Web é reiniciado ou depois que o arquivo Global.asa é editado. 
+O evento "Session_OnStart" ocorre imediatamente após este evento.
+
+Session_OnStart - Este evento ocorre TODAS as vezes que um NOVO usuário solicita sua primeira página no aplicativo ASP.
+
+Session_OnEnd - Este evento ocorre TODAS as vezes que um usuário encerra uma sessão. 
+Uma sessão de usuário termina depois que uma página não é solicitada pelo usuário por um tempo especificado (por padrão, 20 minutos).
+
+Application_OnEnd - Este evento ocorre após o ÚLTIMO usuário encerrar a sessão. 
+Normalmente, esse evento ocorre quando um servidor Web é interrompido. 
+Este procedimento é usado para limpar as configurações após o aplicativo parar, 
+como excluir registros ou gravar informações em arquivos de texto.
+
+Nota: Como não podemos usar os delimitadores de script ASP (< % e% >) 
+para inserir scripts no arquivo Global.asa, colocamos sub-rotinas dentro de um elemento HTML <script>.
+
+-->
+
 <script language="vbscript" runat="server">
 
 'Objeto de aplicativo ASP
@@ -8,13 +54,143 @@ Sub Application_OnStart
     application("users")=1
 End Sub
 
-'Você pode bloquear um aplicativo com o método "Lock". 
-'Quando um aplicativo está bloqueado, os usuários não podem alterar as variáveis ​​do aplicativo 
-'(exceto aquela que o está acessando atualmente).
-'Você pode desbloquear um aplicativo com o método "Unlock". Este método remove o bloqueio da variável do aplicativo'
-Application.Lock
-'fazer algumas operações de objeto de aplicativo
-Application.Unlock
+sub Application_OnEnd
+    'meu código
+end sub
 
+sub Session_OnStart
+    'meu código
+end sub
+
+sub Session_OnEnd
+    'meu código
+end sub
 
 </script>
+
+<!-- 
+    <object> Declarações
+
+    scope - Define o escopo do objeto (Sessão ou Aplicativo) 
+    id - Especifica um id único para o objeto
+    progID - Um id associado a um id de classe. O formato do ProgID é [Vendor.] Componente [.Version]
+        Deve ser especificado ProgID ou ClassID.
+    ClassID - Especifica uma identificação exclusiva para um objeto de classe COM.
+        Deve ser especificado ProgID ou ClassID.
+
+    Sintaxe:
+    < object runat="server" scope="scope" id="id" {progid="progID"|classid="classID"}>
+    ....
+    </>
+-->
+
+<!-- O primeiro exemplo cria um objeto de escopo de sessão denominado "MyBrow" usando o parâmetro ProgID: 
+ Você pode fazer referência ao objeto "MyBrow" em qualquer página do aplicativo ASP: 
+ Declara componentes e dar um nome a eles para serem acessados 
+ -->
+<object runat="server" scope="session" id="MyBrow" progid="MSWC.BrowserType">
+</object>
+
+
+<!--O segundo exemplo cria um objeto de escopo de aplicativo denominado "MyConnection" usando o parâmetro ClassID: -->
+<object runat="server" scope="application" id="MyConnection"
+    classid="Clsid:8AD3067A-B3FC-11CF-A560-00A0C9081C21">
+</object>
+
+<!-- 
+Declarações TypeLibrary
+
+ Veja a sintaxe aqui: https://www.w3schools.com/asp/asp_globalasa.asp
+
+ file - Especifica um caminho absoluto para uma biblioteca de tipos.
+ Tanto o parâmetro de arquivo quanto o parâmetro uuid são necessários
+
+ uuid - Especifica um identificador exclusivo para a biblioteca de tipos.
+ Tanto o parâmetro de arquivo quanto o parâmetro uuid são necessários
+
+ version - Opcional. Usado para selecionar a versão. Se a versão solicitada não for encontrada, a versão mais recente é usada
+ lcid - Opcional. O identificador de local a ser usado para a biblioteca de tipos
+
+Valores de Erro 
+Error Code	Description
+ASP 0222	Invalid type library specification (Especificação de biblioteca de tipo inválida)
+ASP 0223	Type library not found (Biblioteca de tipo não encontrada)
+ASP 0224	Type library cannot be loaded (Biblioteca de tipo não pode ser carregada)
+ASP 0225	Type library cannot be wrapped (A biblioteca de tipo não pode ser quebrada)
+-->
+
+<!--
+Como usar sub-rotinas
+Global.asa é freqüentemente usado para inicializar variáveis. 
+-->
+
+<!--
+O exemplo abaixo mostra como detectar a hora exata em que um visitante chega pela primeira vez a um site. 
+A hora é armazenada em uma variável de sessão chamada "started", e o valor da variável "started" pode ser acessado
+de qualquer página ASP do aplicativo:
+-->
+<script language="vbscript" runat="server" >
+    sub Session_OnStart
+        session("started")=now()
+    end sub
+</script>
+
+<!-- 
+Global.asa também pode ser usado para controlar o acesso à página.
+O exemplo abaixo mostra como redirecionar cada novo visitante para outra página, 
+neste caso para uma página chamada "session.asp" apenas uma vez:
+-->
+<script language="vbscript" runat="server">
+    sub Session_OnStart
+      '  Response.Redirect("session.asp")
+    end sub
+</script>
+
+<!--
+E você pode incluir funções no arquivo Global.asa.
+No exemplo abaixo, a sub-rotina Application_OnStart ocorre quando o servidor Web é iniciado. 
+Em seguida, a sub-rotina Application_OnStart chama outra sub-rotina chamada "getcustomers". 
+A sub-rotina "getcustomers" abre um banco de dados e recupera um conjunto de registros da tabela "clientes". 
+O conjunto de registros é atribuído a uma matriz, onde pode ser acessado de qualquer página ASP sem consultar o banco de dados:
+-->
+<script language="vbscript" runat="server">
+    sub Application_OnStart
+       '' getcustomers
+    end sub
+
+    sub getcustomers     
+        set conn=Server.CreateObject("ADODB.Connection")
+        conn.Provider="Microsoft.Jet.OLEDB.4.0"
+        conn.Open "C:\inetpub\wwwroot\start_asp_classic\db\database1.accdb"       
+        set rs=conn.execute("select name from customers")
+        Application("customers")=rs.GetRows
+        rs.Close
+        conn.Close
+    end sub
+</script>
+
+<!--
+Conta o número de visitantes atuais.
+O Application_OnStart define a variável do aplicativo "visitantes" como 0 quando o servidor é iniciado
+A sub-rotina Session_OnStart adiciona um à variável "visitantes" toda vez que um novo visitante chega
+A sub-rotina Session_OnEnd subtrai um de "visitantes" cada vez que esta sub-rotina é acionada
+-->
+<script language="vbscript" runat="server">
+sub Application_OnStart
+    Application("visitors")=0
+end sub
+
+sub Session_OnStart
+    Application.Lock
+    Application("visitors")=Application("visitors")+1
+    Application.UnLock
+end sub
+
+sub Session_OnEnd
+    Application.Lock
+    Application("visitors")=Application("visitors")-1
+    Application.UnLock
+end sub
+</script>
+
+
