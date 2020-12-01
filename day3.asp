@@ -5,6 +5,7 @@
     <meta charset="utf-8" >
 </head>
 <body>
+<a href="javascript:history.back()">Voltar</a><hr>
 <%
 'No VBScript, temos quatro instruções condicionais:
 'Instrução If - executa um conjunto de códigos quando uma condição é verdadeira

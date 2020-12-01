@@ -12,6 +12,7 @@
         <meta charset="UTF-8">       
     </head>
     <body>
+    <a href="javascript:history.back()">Voltar</a><hr>
         <%         
            'Nota: O comando Response.Cookies deve aparecer ANTES da tag <html>.
 

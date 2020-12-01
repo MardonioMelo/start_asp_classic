@@ -5,6 +5,7 @@
         <meta charset="UTF-8">       
     </head>
     <body>
+    <a href="javascript:history.back()">Voltar</a><hr>
         <%
             'define o limite de tempo da sessão, o padrão é 20 min.'
             Session.Timeout=5

@@ -143,3 +143,43 @@ Link: https://www.w3schools.com/asp/asp_applications.asp
 - Dicas e Notas
 
 Link: https://www.w3schools.com/asp/asp_incfiles.asp
+
+## 10º dia
+
+### ASP O arquivo Global.asa
+
+- O arquivo Global.asa
+- Eventos em Global.asa
+- < object > Declarações
+- Declarações TypeLibrary
+- Valores de Erro
+- Restrições
+- Como usar as sub-rotinas
+- Exemplos
+
+Link: https://www.w3schools.com/asp/asp_globalasa.asp
+
+## 11º dia
+
+### Ajax com ASP
+
+- O que é AJAX?
+- Como funciona AJAX
+- AJAX é baseado em padrões da Internet
+- Google Suggest
+- Comece a usar AJAX hoje
+- Exemplo de AJAX ASP
+- Exemplo de banco de dados AJAX
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -5,6 +5,7 @@
     <meta charset="utf-8" >
 </head>
 <body>
+<a href="javascript:history.back()">Voltar</a><hr>
 <%
 'No VBScript, temos quatro instruções de loop:
 'For...Next statement - executa o código um número especificado de vezes

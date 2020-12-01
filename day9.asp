@@ -5,6 +5,7 @@
         <meta charset="UTF-8">       
     </head>
     <body>    
+    <a href="javascript:history.back()">Voltar</a><hr>
 
         <!-- Use a palavra-chave "virtual" para indicar um caminho começando com um diretório virtual. -->   
         <!-- #include virtual="/tpl/header.inc" -->

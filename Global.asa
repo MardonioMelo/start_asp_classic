@@ -46,26 +46,77 @@ para inserir scripts no arquivo Global.asa, colocamos sub-rotinas dentro de um e
 
 <script language="vbscript" runat="server">
 
-'Objeto de aplicativo ASP
-'Criar variáveis ​​de aplicativo em "Global.asa" assim:
+    'Objeto de aplicativo ASP
+    'Criar variáveis ​​de aplicativo em "Global.asa" assim:
+    Sub Application_OnStart
+        application("vartime")=""
+        application("users")=1
+    End Sub
 
-Sub Application_OnStart
-    application("vartime")=""
-    application("users")=1
-End Sub
+    'Como usar sub-rotinas
+    'Global.asa é freqüentemente usado para inicializar variáveis. 
 
-sub Application_OnEnd
-    'meu código
-end sub
+    'O exemplo abaixo mostra como detectar a hora exata em que um visitante chega pela primeira vez a um site. 
+    'A hora é armazenada em uma variável de sessão chamada "started", e o valor da variável "started" pode ser acessado
+    'de qualquer página ASP do aplicativo:
+    sub Session_OnStart
+        session("started")=now()
+    end sub
 
-sub Session_OnStart
-    'meu código
-end sub
+    'Global.asa também pode ser usado para controlar o acesso à página.
+    'O exemplo abaixo mostra como redirecionar cada novo visitante para outra página, 
+    'neste caso para uma página chamada "session.asp" apenas uma vez:
+    sub Session_OnStart
+      '  Response.Redirect("session.asp")
+    end sub
 
-sub Session_OnEnd
-    'meu código
-end sub
+    'E você pode incluir funções no arquivo Global.asa.
+    'No exemplo abaixo, a sub-rotina Application_OnStart ocorre quando o servidor Web é iniciado. 
+    'Em seguida, a sub-rotina Application_OnStart chama outra sub-rotina chamada "ObjConnDB". 
+    'A sub-rotina "ObjConnDB" abre um banco de dados e recupera um conjunto de registros da tabela "clientes". 
+    'O conjunto de registros é atribuído a uma matriz, onde pode ser acessado de qualquer página ASP sem consultar o banco de dados:
+        
+    sub Application_OnStart
+        ObjConnDB
+    end sub
 
+    sub ObjConnDB    
+
+        set Conn = Server.CreateObject("ADODB.Connection")
+        Conn.Provider="Microsoft.Jet.OLEDB.4.0"
+        Conn.Open "C:\inetpub\wwwroot\start_asp_classic\db\mydb.mdb"    
+
+        set user=Server.CreateObject("ADODB.recordset")
+        user.Open "SELECT * FROM dbo.user", Conn
+
+       '' for each x in user.fields      
+        ''   response.write(x.name)
+      ''  next
+
+        user.close
+        Conn.close
+    end sub
+
+    'Conta o número de visitantes atuais.
+    'O Application_OnStart define a variável do aplicativo "visitantes" como 0 quando o servidor é iniciado
+    'A sub-rotina Session_OnStart adiciona um à variável "visitantes" toda vez que um novo visitante chega
+    'A sub-rotina Session_OnEnd subtrai um de "visitantes" cada vez que esta sub-rotina é acionada
+
+    sub Application_OnStart
+        Application("visitors")=0
+    end sub
+
+    sub Session_OnStart
+        Application.Lock
+        Application("visitors")=Application("visitors")+1
+        Application.UnLock
+    end sub
+
+    sub Session_OnEnd
+        Application.Lock
+        Application("visitors")=Application("visitors")-1
+        Application.UnLock
+    end sub
 </script>
 
 <!-- 
@@ -119,78 +170,5 @@ ASP 0224	Type library cannot be loaded (Biblioteca de tipo não pode ser carrega
 ASP 0225	Type library cannot be wrapped (A biblioteca de tipo não pode ser quebrada)
 -->
 
-<!--
-Como usar sub-rotinas
-Global.asa é freqüentemente usado para inicializar variáveis. 
--->
-
-<!--
-O exemplo abaixo mostra como detectar a hora exata em que um visitante chega pela primeira vez a um site. 
-A hora é armazenada em uma variável de sessão chamada "started", e o valor da variável "started" pode ser acessado
-de qualquer página ASP do aplicativo:
--->
-<script language="vbscript" runat="server" >
-    sub Session_OnStart
-        session("started")=now()
-    end sub
-</script>
-
-<!-- 
-Global.asa também pode ser usado para controlar o acesso à página.
-O exemplo abaixo mostra como redirecionar cada novo visitante para outra página, 
-neste caso para uma página chamada "session.asp" apenas uma vez:
--->
-<script language="vbscript" runat="server">
-    sub Session_OnStart
-      '  Response.Redirect("session.asp")
-    end sub
-</script>
-
-<!--
-E você pode incluir funções no arquivo Global.asa.
-No exemplo abaixo, a sub-rotina Application_OnStart ocorre quando o servidor Web é iniciado. 
-Em seguida, a sub-rotina Application_OnStart chama outra sub-rotina chamada "getcustomers". 
-A sub-rotina "getcustomers" abre um banco de dados e recupera um conjunto de registros da tabela "clientes". 
-O conjunto de registros é atribuído a uma matriz, onde pode ser acessado de qualquer página ASP sem consultar o banco de dados:
--->
-<script language="vbscript" runat="server">
-    sub Application_OnStart
-       '' getcustomers
-    end sub
-
-    sub getcustomers     
-        set conn=Server.CreateObject("ADODB.Connection")
-        conn.Provider="Microsoft.Jet.OLEDB.4.0"
-        conn.Open "C:\inetpub\wwwroot\start_asp_classic\db\database1.accdb"       
-        set rs=conn.execute("select name from customers")
-        Application("customers")=rs.GetRows
-        rs.Close
-        conn.Close
-    end sub
-</script>
-
-<!--
-Conta o número de visitantes atuais.
-O Application_OnStart define a variável do aplicativo "visitantes" como 0 quando o servidor é iniciado
-A sub-rotina Session_OnStart adiciona um à variável "visitantes" toda vez que um novo visitante chega
-A sub-rotina Session_OnEnd subtrai um de "visitantes" cada vez que esta sub-rotina é acionada
--->
-<script language="vbscript" runat="server">
-sub Application_OnStart
-    Application("visitors")=0
-end sub
-
-sub Session_OnStart
-    Application.Lock
-    Application("visitors")=Application("visitors")+1
-    Application.UnLock
-end sub
-
-sub Session_OnEnd
-    Application.Lock
-    Application("visitors")=Application("visitors")-1
-    Application.UnLock
-end sub
-</script>
 
 

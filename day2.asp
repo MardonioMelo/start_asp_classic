@@ -36,6 +36,7 @@
 
 </head>
 <body>
+   <a href="javascript:history.back()">Voltar</a><hr>
     <!-- VBScript -->
     <!-- <p>Você pode chamar um procedimento como este:</p> -->
     <!-- <p> Resultado: < % 'call vbproc(3,4) %> </p> -->

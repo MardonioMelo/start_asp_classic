@@ -1,0 +1,12 @@
+body{
+    font-family: "Arial";  
+}
+
+li {
+    padding-top: 10px;  
+    padding-left: 20px;
+}
+
+a {   
+    text-decoration: none;   
+}

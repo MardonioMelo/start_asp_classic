@@ -10,6 +10,8 @@
         </style>
     </head>
     <body>
+      <a href="javascript:history.back()">Voltar</a><hr>
+
         <%
         'Força a declarar todas as variáveis como dim, public ou private.
         'Mas só quando não dentro do HTML

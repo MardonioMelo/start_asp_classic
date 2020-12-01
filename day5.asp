@@ -5,6 +5,7 @@
     <meta charset="utf-8" >
 </head>
 <body>
+<a href="javascript:history.back()">Voltar</a><hr>
 <%
 'Método GET têm limites na quantidade de informações a serem enviadas.
 'Método POST não têm limites na quantidade de informações a serem enviadas.

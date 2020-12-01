@@ -5,6 +5,7 @@
         <meta charset="UTF-8">       
     </head>
     <body>
+    <a href="javascript:history.back()">Voltar</a><hr>
         Tem
         <%
         'Armazenar e recuperar variáveis ​​de aplicativo
