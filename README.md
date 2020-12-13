@@ -171,7 +171,17 @@ Link: https://www.w3schools.com/asp/asp_globalasa.asp
 - Exemplo de AJAX ASP
 - Exemplo de banco de dados AJAX
 
+## 12º dia
 
+### Conexão e Consulta em DB MySQL
+
+- Drive de conexão
+- Como conectar
+- Variáveis da conexão
+- Query de consulta
+- Verificar consulta
+- Exibir dados de retorno da consulta
+- Fechar conexão e destruir objeto
 
 
 
