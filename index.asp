@@ -18,6 +18,7 @@
         <li><a href="day9.asp">9º dia de estudos</a></li>         
         <li><a href="day10.asp">10º dia de estudos</a></li>         
         <li><a href="day11.asp">11º dia de estudos</a></li>     
-        <li><a href="day12.asp">12º dia de estudos</a></li>             
+        <li><a href="day12.asp">12º dia de estudos</a></li>    
+        <li><a href="day13.asp">13º dia de estudos</a></li>             
     </body>
 </html>
